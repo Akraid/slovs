@@ -5,18 +5,9 @@ import sys, json, os.path, random
 x = len(sys.argv)
 
 if x == 3 and str(sys.argv[1]) == '-f':
-	check_fiel = os.path.exists(sys.argv[2])
+	check_file = os.path.exists(sys.argv[2])
 
-if x == 3 and str(sys.argv[1]) == '-f' and check_fiel:
-	f = open(str(sys.argv[2]))
-	words = {}
-	for i in f:
-		z = i.split("-")
-		words[z[0][:-1]] = z[1][1:-1]
-
-	file_name = 'wor.json'
-	with open(file_name, 'w', encoding = 'utf-8') as g:
-		json.dump(words, g, ensure_ascii = False)
+if x == 3 and str(sys.argv[1]) == '-f' and check_file:
 
 	file_name_new = 'wor.json'
 	with open(file_name_new, 'r') as g:
@@ -50,7 +41,7 @@ if x == 3 and str(sys.argv[1]) == '-f' and check_fiel:
 					print('Ответ:', wor_new[key])
 		case _:
 			print('Нужно выбрать 1 или 2')
-			
+
 	print(j,'из 70 повторений')
 
 elif x == 3 and str(sys.argv[1]) == '-f' and not check_fiel:
