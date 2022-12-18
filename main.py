@@ -9,7 +9,7 @@ if x == 3 and str(sys.argv[1]) == '-f':
 
 if x == 3 and str(sys.argv[1]) == '-f' and check_file:
 
-	file_name_new = 'wor.json'
+	file_name_new = sys.argv[2]
 	with open(file_name_new, 'r') as g:
 		wor_new = json.load(g)
 
