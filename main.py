@@ -4,10 +4,7 @@ import sys, json, os.path, random
 
 x = len(sys.argv)
 
-if x == 3 and str(sys.argv[1]) == '-f':
-	check_file = os.path.exists(sys.argv[2])
-
-if x == 3 and str(sys.argv[1]) == '-f' and check_file:
+if x == 3 and str(sys.argv[1]) == '-f' and os.path.exists(sys.argv[2]):
 
 	file_name_new = sys.argv[2]
 	with open(file_name_new, 'r') as g:
@@ -44,7 +41,7 @@ if x == 3 and str(sys.argv[1]) == '-f' and check_file:
 
 	print(j,'из 70 повторений')
 
-elif x == 3 and str(sys.argv[1]) == '-f' and not check_file:
+elif x == 3 and str(sys.argv[1]) == '-f' and not os.path.exists(sys.argv[2]):
 	print('Нет такого файла')
 else:
 	print('Ошибка, как надо вводить:"./main -f name_file"')
