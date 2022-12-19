@@ -38,8 +38,8 @@ if x == 3 and str(sys.argv[1]) == '-f' and os.path.exists(sys.argv[2]):
 					print('Ответ:', wor_new[key])
 		case _:
 			print('Нужно выбрать 1 или 2')
-
-	print(j,'из 70 повторений')
+	
+	print(j,'из', len(wor_new.keys()))
 
 elif x == 3 and str(sys.argv[1]) == '-f' and not os.path.exists(sys.argv[2]):
 	print('Нет такого файла')
