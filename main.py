@@ -44,7 +44,7 @@ if x == 3 and str(sys.argv[1]) == '-f' and check_file:
 
 	print(j,'из 70 повторений')
 
-elif x == 3 and str(sys.argv[1]) == '-f' and not check_fiel:
+elif x == 3 and str(sys.argv[1]) == '-f' and not check_file:
 	print('Нет такого файла')
 else:
 	print('Ошибка, как надо вводить:"./main -f name_file"')
