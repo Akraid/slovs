@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import sys, json, os.path, random
+import sys, json, os.path, random, shutil
 
 x = len(sys.argv)
 
@@ -16,7 +16,7 @@ file_name_new = sys.argv[2]
 with open(file_name_new, 'r') as g:
 	wor_new = json.load(g)
 
-print('                          ВЫБЕРИТЕ РЕЖИМ:')
+print("ВЫБЕРИТЕ РЕЖИМ:".center(shutil.get_terminal_size().columns))
 print('"1" Для рандомнго режима', '                 ', end = '' )
 print('"2" Для последовательного режима')
 
