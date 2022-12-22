@@ -1,24 +1,30 @@
 #!/usr/bin/python3
 
-import sys, json, os.path, random, shutil
+import sys, json, os.path, random, shutil, os
 
-x = len(sys.argv)
-
-if x != 3 or str(sys.argv[1]) != '-f':
-	print('Ошибка, надо вводить:"./main.py -f name_file.json')
+try:
+	file_name = os.environ['SLOVSFILE']
+except KeyError:
+	print('Переменная окружения SLOVSFILE не найдена')
 	exit(1)
 
-if not os.path.exists(sys.argv[2]):
-	print('Файла ', sys.argv[2], 'не существует')
+if len(sys.argv) > 1:
+	if str(sys.argv[1]) == '-f':
+		file_name = str(sys.argv[2])
+	else:
+		print('Ошибка, надо вводить:"./main.py -f name_file.json')
+		exit(1)
+
+if not os.path.exists(file_name):
+	print('Файла ', file_name, 'не существует')
 	exit(1)
 
-file_name_new = sys.argv[2]
-with open(file_name_new, 'r') as g:
+with open(file_name, 'r') as g:
 	wor_new = json.load(g)
 
 print("ВЫБЕРИТЕ РЕЖИМ:".center(shutil.get_terminal_size().columns))
-print('"1" Для рандомнго режима', '                 ', end = '' )
-print('"2" Для последовательного режима')
+print('"1" Для рандомнго режима', end = '' )
+print('"2" Для последовательного режима'.rjust(shutil.get_terminal_size().columns - len('"1" Для рандомнго режима')))
 
 vibor = int(input())
 
