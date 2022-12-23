@@ -1,23 +1,29 @@
 #!/usr/bin/python3
 
-import sys
-import argparse
+import sys, argparse
 
 
 def createParser ():
 	parser = argparse.ArgumentParser()
-	parser.add_argument ('-n', '--name', default='мир')
-	parser.add_argument ('-l', '--lastname', default='мир')
-
+	parser.add_argument ('-a', '--name', default='мир')
+	parser.add_argument ('-l' "=", '--lastname', default='мир')
 	return parser
 
 parser_new = createParser()
 namespace = parser_new.parse_args(sys.argv[1:])
-
+namespace = parser_new.parse_args(sys.argv[1:])
 # print (namespace)
 
-print ("your name,", namespace.name)
+print ("your name,", str(namespace.name))
 print ("your lastname, {}!".format (namespace.lastname) )
+
+# slovr = dict()
+
+# slovr.update(str(namespace.name))
+
+# print (slovr)
+
+
 
 
 # SLOVSFILE=WOR.JSON ./main.py  

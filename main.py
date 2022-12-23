@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import sys, json, os.path, random, shutil, os
+import sys, json, os.path, random, shutil, os, argparse
 
 try:
 	file_name = os.environ['SLOVSFILE']
@@ -11,6 +11,14 @@ except KeyError:
 if len(sys.argv) > 1:
 	if str(sys.argv[1]) == '-f':
 		file_name = str(sys.argv[2])
+	if str(sys.argv[1]) == '-a':
+		new_data = {str(sys.argv[2].split("=")[0]) : str(sys.argv[2].split("=")[1])}
+		with open('wor.json', 'r+', encoding = 'utf-8') as f:
+			data = json.load(f)
+			data.update(new_data)
+			f.seek(0)
+			json.dump(data, f, ensure_ascii=False, indent = 2)
+			exit()
 	else:
 		print('Ошибка, надо вводить:"./main.py -f name_file.json')
 		exit(1)
