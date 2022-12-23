@@ -11,7 +11,7 @@ except KeyError:
 if len(sys.argv) > 1:
 	if str(sys.argv[1]) == '-f':
 		file_name = str(sys.argv[2])
-	if str(sys.argv[1]) == '-a':
+	elif str(sys.argv[1]) == '-a':
 		new_data = {str(sys.argv[2].split("=")[0]) : str(sys.argv[2].split("=")[1])}
 		with open('wor.json', 'r+', encoding = 'utf-8') as f:
 			data = json.load(f)
