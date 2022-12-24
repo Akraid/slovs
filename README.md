@@ -14,5 +14,7 @@ This application is designed to memorize English words.
 ```
 
 2. Create an environment variable `export SLOVSFILE='name_file.json'` containing the path to dictionary-file.
-3. To run the program, enter `python3 main.py -f name_file.json` into the console.
+3. To run the program, enter `python3 main.py` into the console.
+
+_You can also override the file path in an environment variable using `-f` flag: `python3 main.py -f name_file.json`_
  
