@@ -9,19 +9,24 @@ except KeyError:
 	exit(1)
 
 if len(sys.argv) > 1:
-	if str(sys.argv[1]) == '-f':
-		file_name = str(sys.argv[2])
-	elif str(sys.argv[1]) == '-a':
-		new_data = {str(sys.argv[2].split("=")[0]) : str(sys.argv[2].split("=")[1])}
-		with open('wor.json', 'r+', encoding = 'utf-8') as f:
-			data = json.load(f)
-			data.update(new_data)
-			f.seek(0)
-			json.dump(data, f, ensure_ascii=False, indent = 2)
+	match sys.argv[1]:
+		case '-f':
+			file_name = str(sys.argv[2])
+		case '-a':
+			def write(data, filename):
+				with open(filename, 'r+', encoding = 'utf-8') as f:
+					data = json.load(f)
+					data.update(data_new)
+					f.seek(0)
+					json.dump(data, f, ensure_ascii=False, indent = 2)
+
+			data_argv = sys.argv[2].split("=")
+			data_new = {data_argv[0] : data_argv[1]}
+			write(data_new, "wor3.json")
 			exit()
-	else:
-		print('Ошибка, надо вводить:"./main.py -f name_file.json')
-		exit(1)
+		case _:
+			print('Ошибка, надо вводить:"./main.py -f name_file.json')
+			exit(1)
 
 if not os.path.exists(file_name):
 	print('Файла ', file_name, 'не существует')
