@@ -1,6 +1,16 @@
 #!/usr/bin/python3
 
-import sys, json, os.path, random, shutil, os, argparse
+import sys, json, os.path, random, shutil, os
+
+def load(file):
+	with open(file, 'r') as g:
+		return json.load(g)
+
+def write_f(data_new, file):
+	data = load(file)
+	with open(file, 'w') as f:
+		data.update(data_new)
+		json.dump(data, f, ensure_ascii=False, indent = 2)
 
 try:
 	file_name = os.environ['SLOVSFILE']
@@ -11,20 +21,12 @@ except KeyError:
 if len(sys.argv) > 1:
 	match sys.argv[1]:
 		case '-f':
-			file_name = str(sys.argv[2])
-		case '-a':
+			file_name = sys.argv[2]
+		case '-u':
 			try:
-				def write(data, filename):
-					with open(filename, 'r+', encoding = 'utf-8') as f:
-						data = json.load(f)
-						data.update(data_new)
-						f.seek(0)
-						json.dump(data, f, ensure_ascii=False, indent = 2)
-
 				data_argv = sys.argv[2].split("=")
-				data_new = {data_argv[0] : data_argv[1]}
-				
-				write(data_new, "wor3.json")
+				data_new = {data_argv[0]:dict(translation = data_argv[1], score = 0)}
+				write_f(data_new, file_name)
 				print('Word', '"{}"'.format(data_argv[0]), 'with meaning', '"{}"'.format(data_argv[1]), 'successfully added')
 				exit()
 			except ValueError:
@@ -38,9 +40,6 @@ if not os.path.exists(file_name):
 	print('Файла ', file_name, 'не существует')
 	exit(1)
 
-with open(file_name, 'r') as g:
-	wor_new = json.load(g)
-
 print("ВЫБЕРИТЕ РЕЖИМ:".center(shutil.get_terminal_size().columns))
 print('"1" Для рандомнго режима', end = '' )
 print('"2" Для последовательного режима'.rjust(shutil.get_terminal_size().columns - len('"1" Для рандомнго режима')))
@@ -48,26 +47,27 @@ print('"2" Для последовательного режима'.rjust(shutil.
 vibor = int(input())
 
 j = 0
+words = load(file_name)
 
 match vibor:
 	case 1:
-		for key in wor_new.keys():
-			random_key = random.choice(list(wor_new))
+		for key in words.keys():
+			random_key = random.choice(list(words))
 			print(random_key, end = '')
-			if wor_new[random_key] == input('-'):
+			if words[random_key]["translation"] == input('-'):
 				print('+')
 				j += 1
 			else:
-				print('Ответ:', wor_new[random_key])
+				print('Ответ:', words[random_key]["translation"])
 	case 2:
-		for key in wor_new.keys():
+		for key in words.keys():
 			print(key, end = '')
 			otvet = input('-')
-			if wor_new[key] == otvet:
+			if words[key]["translation"] == otvet:
 				print('+')
 			else:
-				print('Ответ:', wor_new[key])
+				print('Ответ:', words[key]["translation"])
 	case _:
 		print('Нужно выбрать 1 или 2')
 
-print(j,'из', len(wor_new.keys()))
+print(j,'из', len(words.keys()))
