@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
-import sys, json, os.path, random, shutil, os 
-import functionspy as fu
+import sys, json, os.path, random, shutil, os
+import myfunctions as fu
+from pprint import pprint
 
 try:
 	file_name = os.environ['SLOVSFILE']
@@ -23,6 +24,10 @@ if len(sys.argv) > 1:
 			except ValueError:
 				print("Can't add new word! Please enter the command as follows: python3 main.py -a apple=яблоко")
 				exit(1)
+		case '-r':
+			file_name = sys.argv[2]
+			fu.rewrite("wor.json", file_name)
+			exit()
 		case _:
 			print('Ошибка, надо вводить:"./main.py -f name_file.json')
 			exit(1)
@@ -37,28 +42,19 @@ print('"2" Для последовательного режима'.rjust(shutil.
 
 vibor = int(input())
 
-words = fu.loadw(file_name)
+words = fu.load(file_name)
+scors_list = fu.scors(words)
 
 match vibor:
 	case 1:
-		for key in words.keys():
-			random_key = random.choice(list(words))
-			print(random_key, end = '')
-			if words[random_key]["translation"] == input('-'):
-				words[random_key]["score"] += 1
-				print('+')
-				test2.j += 1
-			else:
-				print('Ответ:', words[random_key]["translation"])
+		while min(scors_list) != 1:
+			fu.randommod(words, file_name)
+			scors_list = fu.scors(words)
+		print("Обновите словарь")
 	case 2:
-		for key in words.keys():
-			print(key, end = '')
-			otvet = input('-')
-			if words[key]["translation"] == otvet:
-				print('+')
-			else:
-				print('Ответ:', words[key]["translation"])
+		while min(scors_list) != 1:
+			fu.linemode(words, file_name)
+			scors_list = fu.scors(words)
+		print('Обновите словарь')
 	case _:
 		print('Нужно выбрать 1 или 2')
-
-print(j,'из', len(words.keys()))
