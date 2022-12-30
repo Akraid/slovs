@@ -1,16 +1,7 @@
 #!/usr/bin/python3
 
-import sys, json, os.path, random, shutil, os
-
-def load(file):
-	with open(file, 'r') as g:
-		return json.load(g)
-
-def write_f(data_new, file):
-	data = load(file)
-	with open(file, 'w') as f:
-		data.update(data_new)
-		json.dump(data, f, ensure_ascii=False, indent = 2)
+import sys, json, os.path, random, shutil, os 
+import functionspy as fu
 
 try:
 	file_name = os.environ['SLOVSFILE']
@@ -26,7 +17,7 @@ if len(sys.argv) > 1:
 			try:
 				data_argv = sys.argv[2].split("=")
 				data_new = {data_argv[0]:dict(translation = data_argv[1], score = 0)}
-				write_f(data_new, file_name)
+				functions.write_f(data_new, file_name)
 				print('Word', '"{}"'.format(data_argv[0]), 'with meaning', '"{}"'.format(data_argv[1]), 'successfully added')
 				exit()
 			except ValueError:
@@ -46,8 +37,7 @@ print('"2" Для последовательного режима'.rjust(shutil.
 
 vibor = int(input())
 
-j = 0
-words = load(file_name)
+words = fu.loadw(file_name)
 
 match vibor:
 	case 1:
@@ -55,8 +45,9 @@ match vibor:
 			random_key = random.choice(list(words))
 			print(random_key, end = '')
 			if words[random_key]["translation"] == input('-'):
+				words[random_key]["score"] += 1
 				print('+')
-				j += 1
+				test2.j += 1
 			else:
 				print('Ответ:', words[random_key]["translation"])
 	case 2:

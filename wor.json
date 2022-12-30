@@ -278,5 +278,9 @@
   "only": {
     "translation": "только ",
     "score": 0
+  },
+  "book": {
+    "translation": "книга",
+    "score": 0
   }
 }
