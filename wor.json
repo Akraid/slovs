@@ -24,7 +24,7 @@
     "score": 0
   },
   "encrypted": {
-    "translation": "зашиврованное",
+    "translation": "зашифрованное",
     "score": 0
   },
   "encrypt": {
@@ -84,7 +84,7 @@
     "score": 0
   },
   "computing": {
-    "translation": "вычиления",
+    "translation": "вычисления",
     "score": 0
   },
   "important": {
@@ -276,11 +276,7 @@
     "score": 0
   },
   "only": {
-    "translation": "только ",
-    "score": 0
-  },
-  "book": {
-    "translation": "книга",
+    "translation": "только",
     "score": 0
   }
 }

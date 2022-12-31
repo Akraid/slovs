@@ -1,11 +1,11 @@
 {
   "introduction": {
     "translation": "вступление",
-    "score": 0
+    "score": 1
   },
   "secure": {
     "translation": "безопасный",
-    "score": 0
+    "score": 1
   },
   "oldest": {
     "translation": "старейший",
@@ -45,7 +45,7 @@
   },
   "manage": {
     "translation": "управлять",
-    "score": 0
+    "score": 1
   },
   "service": {
     "translation": "сервис",
@@ -81,7 +81,7 @@
   },
   "сloud": {
     "translation": "облако",
-    "score": 0
+    "score": 1
   },
   "computing": {
     "translation": "вычиления",
@@ -121,7 +121,7 @@
   },
   "researcher": {
     "translation": "исследователь",
-    "score": 0
+    "score": 1
   },
   "sniffing": {
     "translation": "просеивание",
@@ -145,7 +145,7 @@
   },
   "first": {
     "translation": "первый",
-    "score": 0
+    "score": 1
   },
   "revised": {
     "translation": "пересмотренный",
@@ -185,7 +185,7 @@
   },
   "creation": {
     "translation": "создание",
-    "score": 0
+    "score": 1
   },
   "implementation": {
     "translation": "реализация",
@@ -241,7 +241,7 @@
   },
   "send": {
     "translation": "отправить",
-    "score": 0
+    "score": 1
   },
   "receive": {
     "translation": "получить",

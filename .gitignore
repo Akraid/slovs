@@ -1,3 +1,5 @@
 zadanie.txt
 *.txt
 test2.py
+123.py
+__pycache__
