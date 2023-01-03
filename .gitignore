@@ -1,4 +1,5 @@
 zadanie.txt
 *.txt
-wor.json
 test2.py
+123.py
+__pycache__

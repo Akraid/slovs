@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import sys, json, os.path, random, shutil, os
+import myfunctions as fu
 
 try:
 	file_name = os.environ['SLOVSFILE']
@@ -9,18 +10,32 @@ except KeyError:
 	exit(1)
 
 if len(sys.argv) > 1:
-	if str(sys.argv[1]) == '-f':
-		file_name = str(sys.argv[2])
-	else:
-		print('Ошибка, надо вводить:"./main.py -f name_file.json')
-		exit(1)
+	match sys.argv[1]:
+		case '-f':
+			file_name = sys.argv[2]
+		case '-u':
+			try:
+				data_argv = sys.argv[2].split("=")
+				data_new = {data_argv[0]:dict(translation = data_argv[1], score = 0)}
+				fu.update_file(data_new, file_name)
+				print('Word', '"{}"'.format(data_argv[0]), 'with meaning', '"{}"'.format(data_argv[1]), 'successfully added')
+				exit()
+			except ValueError:
+				print("Can't add new word! Please enter the command as follows: python3 main.py -u apple=яблоко")
+				exit(1)
+		case '-r':
+			file_name = sys.argv[2]
+			fu.rewrite("base.json", file_name)
+			exit()
+		case _:
+			print("Ошибка, надо вводить:./main.py -f name_file.json для открытия файла\n"
+				"Ошибка, надо вводить:./main.py -u name_file.json для добавления слова\n"
+			"Ошибка, надо вводить:./main.py -r name_file.json для сброса словаря к базовым значениям")
+			exit(1)
 
 if not os.path.exists(file_name):
 	print('Файла ', file_name, 'не существует')
 	exit(1)
-
-with open(file_name, 'r') as g:
-	wor_new = json.load(g)
 
 print("ВЫБЕРИТЕ РЕЖИМ:".center(shutil.get_terminal_size().columns))
 print('"1" Для рандомнго режима', end = '' )
@@ -28,27 +43,18 @@ print('"2" Для последовательного режима'.rjust(shutil.
 
 vibor = int(input())
 
-j = 0
+words = fu.load_file(file_name)
+scors_list = fu.scors(words)
 
 match vibor:
 	case 1:
-		for key in wor_new.keys():
-			random_key = random.choice(list(wor_new))
-			print(random_key, end = '')
-			if wor_new[random_key] == input('-'):
-				print('+')
-				j += 1
-			else:
-				print('Ответ:', wor_new[random_key])
+		while min(scors_list) != 1:
+			fu.randommod(words, file_name)
+			scors_list = fu.scors(words)
 	case 2:
-		for key in wor_new.keys():
-			print(key, end = '')
-			otvet = input('-')
-			if wor_new[key] == otvet:
-				print('+')
-			else:
-				print('Ответ:', wor_new[key])
+		while min(scors_list) != 1:
+			fu.linemode(words, file_name)
+			scors_list = fu.scors(words)
 	case _:
 		print('Нужно выбрать 1 или 2')
-
-print(j,'из', len(wor_new.keys()))
+print('Обновите словарь')
