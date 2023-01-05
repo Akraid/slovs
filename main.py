@@ -1,45 +1,36 @@
 #!/usr/bin/python3
 
-import sys, json, os.path, random, shutil, os
-import myclasses as cl 
+import sys, json, os.path, random, shutil, os, slovs
 
-try:
-	file_name = os.environ['SLOVSFILE']
-except KeyError:
-	print('Переменная окружения SLOVSFILE не найдена')
-	exit(1)
-
-cli = cl.CommandLineInterface(file_name)
+cli = slovs.CommandLineInterface()
 
 if len(sys.argv) > 1:
 	match sys.argv[1]:
 		case '-f':
-			cli.cli_f()
+			cli.file(sys.argv[2])
 		case '-u':
-			cli.cli_u()
+			cli.update()
 		case '-r':
-			cli.cli_r()
+			cli.reset()
 		case '-l':
-			cli.cli_l()
+			cli.list()
 		case '-d':
-			cli.cli_d()
+			cli.delete()
 		case _:
-			cli.cli_eror()
-			exit(1)
+			cli.error()
 
-cli.check_file()
+cli.check()
 
-print("ВЫБЕРИТЕ РЕЖИМ:".center(shutil.get_terminal_size().columns))
-print('"1" Для рандомнго режима', end = '' )
-print('"2" Для последовательного режима'.rjust(shutil.get_terminal_size().columns - len('"1" Для рандомнго режима')))
+game = slovs.Gamewords(cli.getfilename())
+game.print_vibor()
 
 vibor = int(input())
 
 match vibor:
 	case 1:
-			cli.randommod()
+			game.randommod()
 	case 2:
-			cli.linemode()
+			game.linemode()
 	case _:
 		print('Нужно выбрать 1 или 2')
-print('Обновите словарь')
+print('Обновите очки в словаре')
